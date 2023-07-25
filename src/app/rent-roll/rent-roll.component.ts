@@ -1,10 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-rent-roll',
+  selector: 'rroll-data',
   templateUrl: './rent-roll.component.html',
   styleUrls: ['./rent-roll.component.scss']
 })
-export class RentRollComponent {
+export class RentRollComponent implements OnInit {
+    clientName: string = "Sam"
 
+    ngOnInit(): void {
+      
+    }
 }
