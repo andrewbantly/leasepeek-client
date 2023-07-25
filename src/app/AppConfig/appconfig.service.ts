@@ -1,10 +1,9 @@
 import { InjectionToken } from '@angular/core';
 import { Appconfig } from './appconfig';
+import { environment } from 'src/environments/environemnt';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AppconfigService {
+export const APP_SERVICE_CONFIG = new InjectionToken<Appconfig>('app.config');
 
-  constructor() { }
+export const APP_CONFIG: Appconfig = {
+  apiEndPoint: environment.apiEndpoint
 }
