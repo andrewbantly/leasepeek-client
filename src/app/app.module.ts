@@ -3,10 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { RentRollComponent } from './rent-roll/rent-roll.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RentRollComponent
   ],
   imports: [
     BrowserModule,
