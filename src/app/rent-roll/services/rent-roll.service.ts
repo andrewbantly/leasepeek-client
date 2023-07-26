@@ -10,7 +10,6 @@ import { environment } from 'src/environments/environemnt';
   providedIn: 'root'
 })
 export class RentRollService {
-  unitList: Array<string | number | Date> = [];
 
   constructor(@Inject(APP_SERVICE_CONFIG) private config: Appconfig, private http: HttpClient) { 
     console.log('api end point:');

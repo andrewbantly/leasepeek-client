@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RentRollService } from './services/rent-roll.service'
 import { HttpEventType } from '@angular/common/http';
+import { catchError } from 'rxjs';
 
 
 @Component({
@@ -12,6 +13,9 @@ import { HttpEventType } from '@angular/common/http';
 export class RentRollComponent implements OnInit {
     clientName: string = "Sam";
     totalBytes: number = 0;
+    // unitList: Array<string | number | Date> = [];
+    unitList: Array<any> = [];
+    
 
     constructor(private rentRollService: RentRollService) {}
 
@@ -35,6 +39,7 @@ export class RentRollComponent implements OnInit {
             console.log(event.body)
           }
         }
+        this.unitList = event.body
       })
     }
 }
