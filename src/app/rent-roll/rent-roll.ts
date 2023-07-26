@@ -11,7 +11,7 @@ export interface Unit {
     otherDeposit: number;
     moveIn: Date;
     leaseExp: Date;
-    moveOut: Date;
+    moveOut: Date | null;
     balance: number;
     rliab: number;
     amenf: number;
