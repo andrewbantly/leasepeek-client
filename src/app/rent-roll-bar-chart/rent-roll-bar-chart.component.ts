@@ -9,11 +9,11 @@ import * as d3 from 'd3';
 export class RentRollBarChartComponent implements AfterViewInit {
   @Input() chartData: number[] = [];
   @Input() chartLabels: string[] = [];
-  chartWidth: number = window.innerWidth / 2;
+  chartWidth: number = window.innerWidth / 1.5;
 
   @HostListener('window:resize', ['$event'])
   onWindowResize(event: any): void {
-    this.chartWidth = window.innerWidth / 2;
+    this.chartWidth = window.innerWidth / 1.5;
     this.createChart();
   }
 
@@ -24,8 +24,6 @@ export class RentRollBarChartComponent implements AfterViewInit {
   }
 
   private createChart(): void {
-    console.log('chartData:', this.chartData);
-    console.log('chartLabels:', this.chartLabels);
     const element = this.elementRef.nativeElement;
     d3.select(element).selectAll('svg').remove();
     const svg = d3.select(element).append('svg')
@@ -34,20 +32,13 @@ export class RentRollBarChartComponent implements AfterViewInit {
 
     // Chart dimensions
     const margin = { top: 20, right: 20, bottom: 30, left: 40 };
-    const width = +svg.attr('width') - margin.left - margin.right;
-    const height = +svg.attr('height') - margin.top - margin.bottom;
-    console.log("margin:", margin)
-    console.log("width:", width)
-    console.log("svg width:", +svg.attr('width'))
+    const width = this.chartWidth - margin.left - margin.right;
+    const height = 400 - margin.top - margin.bottom;
 
     const xScale = d3.scaleBand()
       .range([0, width])
       .padding(0.1)
       .domain(this.chartLabels);
-
-    // Output the values of xScale.bandwidth() and this.chartLabels
-    console.log('xScale.bandwidth():', xScale.bandwidth());
-    console.log('this.chartLabels:', this.chartLabels);
 
     const filteredChartData = this.chartData.filter(d => typeof d === 'number');
 
@@ -73,10 +64,21 @@ export class RentRollBarChartComponent implements AfterViewInit {
       .append('text')
       .attr('class', 'bar-label')
       .attr('x', (d, i) => xScale(this.chartLabels[i]) || 0 + xScale.bandwidth() / 2)
-      .attr('y', d => yScale(d) - 5) // Adjust the vertical position based on your preference
+      .attr('y', d => yScale(d) - 5) 
       .text(d => d)
-      .attr('text-anchor', 'middle') // Center the label on the bar
-      .attr('font-size', '12px') // Adjust font size based on your preference
-      .attr('fill', 'black'); // Adjust label color based on your preference
+      .attr('text-anchor', 'right') 
+      .attr('font-size', '12px') 
+      .attr('fill', 'black'); 
+
+    g.append('g')
+      .attr('transform', `translate(0,${height})`)
+      .call(d3.axisBottom(xScale))
+      .selectAll('text')
+      .style('text-anchor', 'middle')
+      .attr('dx', '-.8em')
+      .attr('dy', '.75em')
+      .append('title') 
+      .text(`Category:`);
   }
+
 }
