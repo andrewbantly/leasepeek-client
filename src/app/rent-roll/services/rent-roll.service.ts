@@ -27,10 +27,6 @@ export class RentRollService {
   };
 
   upload(formData: FormData): Observable<any> {
-    // const headers = new HttpHeaders({
-    //   'Authorization': 'Bearer YOUR_ACCESS_TOKEN', // Replace YOUR_ACCESS_TOKEN with your actual token if needed
-    //   'Content-Type': 'application/json' // Assuming you are sending JSON data
-    // });
     let human: Object = {
       name: "Kate",
       age: "28",
