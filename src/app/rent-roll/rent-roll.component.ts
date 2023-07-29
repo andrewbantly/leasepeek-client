@@ -14,8 +14,6 @@ import { Unit } from '../rent-roll/rent-roll'
 export class RentRollComponent implements OnInit {
   clientName: string = "Sam";
   totalBytes: number = 0;
-  // unitList: Array<string | number | Date> = [];
-  // unitList: Array<any> = [];
   unitList: Unit[] = [];
   rents: number[] = []
   chartData: number[] = [];
@@ -41,7 +39,6 @@ export class RentRollComponent implements OnInit {
           break;
         }
         case HttpEventType.Response: {
-          // this.unitList = event.body[1].Tenants;
           this.unitList = event.body[1].Tenants.map((tenant: any) => {
             const unit: Unit = {
               status: tenant.Status,
@@ -96,6 +93,16 @@ export class RentRollComponent implements OnInit {
 
   uploadDocument() {
     console.log("upload document triggered")
+    const fileInput = document.getElementById('fileInput') as HTMLInputElement
+    // console.log(fileInput)
+    if (fileInput && fileInput.files && fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+      console.log(file);
+      // Rest of the code to handle the file upload...
+    } else {
+      console.log("No file selected.");
+    }
+    
   }
 
     
