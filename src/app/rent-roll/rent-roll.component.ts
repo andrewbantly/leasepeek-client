@@ -100,8 +100,13 @@ export class RentRollComponent implements OnInit {
       console.log(file);
       let formData = new FormData()
       formData.append('file', file)
-      console.log('Form Data:')
-      console.log(formData)
+      // console.log('Form Data:')
+      // formData.forEach((value, key) => {
+      //   console.log(key, value);
+      // });
+      // this.rentRollService.upload(formData).subscribe()
+      this.rentRollService.upload(formData).subscribe()
+
     } else {
       console.log("File upload error.");
     }
