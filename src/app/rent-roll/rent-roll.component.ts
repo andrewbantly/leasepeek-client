@@ -94,13 +94,11 @@ export class RentRollComponent implements OnInit {
   uploadDocument() {
     console.log("upload document triggered")
     const fileInput = document.getElementById('fileInput') as HTMLInputElement
-    // console.log(fileInput)
     if (fileInput && fileInput.files && fileInput.files.length > 0) {
       const file = fileInput.files[0];
       console.log(file);
-      // Rest of the code to handle the file upload...
     } else {
-      console.log("No file selected.");
+      console.log("File upload error.");
     }
     
   }
