@@ -96,7 +96,12 @@ export class RentRollComponent implements OnInit {
     const fileInput = document.getElementById('fileInput') as HTMLInputElement
     if (fileInput && fileInput.files && fileInput.files.length > 0) {
       const file = fileInput.files[0];
+      console.log("Uploading file:");
       console.log(file);
+      let formData = new FormData()
+      formData.append('file', file)
+      console.log('Form Data:')
+      console.log(formData)
     } else {
       console.log("File upload error.");
     }
