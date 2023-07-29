@@ -94,5 +94,9 @@ export class RentRollComponent implements OnInit {
     this.dataReady.next();
   }
 
+  uploadDocument() {
+    console.log("upload document triggered")
+  }
+
     
 }

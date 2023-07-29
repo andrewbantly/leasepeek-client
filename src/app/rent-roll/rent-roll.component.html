@@ -6,11 +6,15 @@
 <h1>Welcome, {{ clientName }}</h1>
 
 <div *ngIf="unitList.length > 0">
-    <rroll-rent-roll-bar-chart [chartData]="chartData" [chartLabels]="chartLabels" [chartDataWithLabels]="chartDataWithLabels"></rroll-rent-roll-bar-chart>
+    <rroll-rent-roll-bar-chart [chartData]="chartData" [chartLabels]="chartLabels"></rroll-rent-roll-bar-chart>
 
-  </div>
-  
-  
+</div>
+
+<div>
+    <h2>Upload file</h2>
+    <input type="file" id="fileInput" />
+    <button (click)="uploadDocument()">Upload</button>
+</div>
 
 <!-- <div *ngIf="unitList.length > 0">
     <h2>Rent Roll Data Fetch</h2>
