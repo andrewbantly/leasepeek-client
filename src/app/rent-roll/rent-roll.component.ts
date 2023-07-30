@@ -2,8 +2,8 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { RentRollService } from './services/rent-roll.service'
 import { HttpEventType, HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
-import { Unit } from '../rent-roll/rent-roll'
-
+import { Unit, ExcelDataRow } from '../rent-roll/rent-roll'
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'rroll-data',
@@ -20,6 +20,7 @@ export class RentRollComponent implements OnInit {
   chartLabels: string[] = [];
   chartDataWithLabels: { label: string; data: number }[] = [];
   dataReady = new Subject<void>();
+  
 
   constructor(private rentRollService: RentRollService, private http: HttpClient) { }
 
@@ -112,25 +113,65 @@ export class RentRollComponent implements OnInit {
     this.dataReady.next();
   }
 
+  // uploadDocument(e: Event) {
+  //   e.preventDefault()
+  //   console.log("upload document triggered")
+  //   const fileInput = document.getElementById('fileInput') as HTMLInputElement
+  //   console.log(fileInput.files)
+  //   if (fileInput && fileInput.files && fileInput.files.length > 0) {
+  //     const file = fileInput.files[0];
+  //     console.log("Uploading file:", file);
+  //     let formData = new FormData()
+  //     formData.append('content', file)
+  //     console.log("FORM DATA:");
+  //     formData.forEach((value,key) => {
+  //       console.log(key, value)
+  //     })
+  //     this.rentRollService.upload(formData).subscribe()
+  //   } else {
+  //     console.log("File upload error.");
+  //   } 
+  // }
+
   uploadDocument(e: Event) {
-    e.preventDefault()
-    console.log("upload document triggered")
-    const fileInput = document.getElementById('fileInput') as HTMLInputElement
-    console.log(fileInput.files)
+    e.preventDefault();
+    const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+
     if (fileInput && fileInput.files && fileInput.files.length > 0) {
       const file = fileInput.files[0];
-      console.log("Uploading file:", file);
-      let formData = new FormData()
-      formData.append('content', file)
-      console.log("FORM DATA:");
-      formData.forEach((value,key) => {
-        console.log(key, value)
-      })
-      this.rentRollService.upload(formData).subscribe()
+
+      // Read the XLSX file
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        const data = new Uint8Array(event.target.result);
+        const workbook = XLSX.read(data, { type: 'array' });
+        console.log(workbook)
+        // Assume there's only one sheet in the XLSX file
+        const sheetName = workbook.SheetNames[0];
+        const sheet = workbook.Sheets[sheetName];
+        console.log(sheet)
+        // Convert the sheet data to JSON format
+        const jsonData: JSON[] = XLSX.utils.sheet_to_json(sheet);
+        // console.log(jsonData)
+        // Convert jsonData to a JSON-compatible format using JSON.stringify
+
+        // const jsonDataString = JSON.stringify(jsonData);
+        // console.log(jsonDataString)
+        // Convert jsonDataString back to JSON object using JSON.parse
+        // const jsonDataObject: JSON = {data: jsonData}
+        // console.log(jsonDataObject)
+        // Send the JSON data to the backend
+
+        this.rentRollService.upload(jsonData).subscribe();
+      };
+
+      reader.readAsArrayBuffer(file);
     } else {
-      console.log("File upload error.");
-    } 
+      console.log('File upload error.');
+    }
   }
+  
+
 
   getData() {
     this.rentRollService.getExcelData().subscribe((event) => {
@@ -145,7 +186,7 @@ export class RentRollComponent implements OnInit {
         }
         case HttpEventType.Response: {
           const response = event.body.content
-          
+
           console.log(response.body.content)
           break;
         }

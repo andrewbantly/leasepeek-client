@@ -19,3 +19,7 @@ export interface Unit {
     rntres: number;
     total: number;
 }
+
+export interface ExcelDataRow {
+    [key: string]: any;
+  }

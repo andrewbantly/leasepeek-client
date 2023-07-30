@@ -25,8 +25,11 @@ export class RentRollService {
     return this.http.request(request);
   };
 
-  upload(formData: FormData): Observable<any> {
-    return this.http.post('http://127.0.0.1:8000/api/data/', formData);
+  upload(jsonData: JSON[]): Observable<any> {
+    console.log("JSON DATA")
+    const data = { data: jsonData }
+    console.log(data)
+    return this.http.post('http://127.0.0.1:8000/api/data/', data);
   }
 
   getExcelData():Observable<any> {
