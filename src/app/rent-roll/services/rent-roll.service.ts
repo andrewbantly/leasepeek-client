@@ -15,28 +15,26 @@ export class RentRollService {
 
   constructor(@Inject(APP_SERVICE_CONFIG) private config: Appconfig, private http: HttpClient) {
     console.log('api end point:');
-    console.log(this.config.apiEndPoint)
     console.log(environment.apiEndpoint)
   }
 
   getRentRoll(): Observable<any> {
-    const request = new HttpRequest('GET', `http://127.0.0.1:8000/`, {
+    const request = new HttpRequest('GET', `http://127.0.0.1:8000/example`, {
       reportProgress: true
     });
     return this.http.request(request);
   };
 
   upload(formData: FormData): Observable<any> {
-    let human: Object = {
-      name: "Kate",
-      age: "28",
-      created: false
-    }
-    return this.http.post('http://127.0.0.1:8000/api/test/', human);
-    // return this.http.post('http://127.0.0.1:8000/upload/', formData, { headers: headers });
+    return this.http.post('http://127.0.0.1:8000/api/data/', formData);
   }
 
-
+  getExcelData():Observable<any> {
+    const request = new HttpRequest('GET', `http://127.0.0.1:8000/api/data/3`, {
+      reportProgress: true
+    });
+    return this.http.request(request);
+  }
 }
 
 

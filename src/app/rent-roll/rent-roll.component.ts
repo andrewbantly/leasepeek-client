@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { RentRollService } from './services/rent-roll.service'
-import { HttpEventType } from '@angular/common/http';
+import { HttpEventType, HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Unit } from '../rent-roll/rent-roll'
 
@@ -21,13 +21,34 @@ export class RentRollComponent implements OnInit {
   chartDataWithLabels: { label: string; data: number }[] = [];
   dataReady = new Subject<void>();
 
-  constructor(private rentRollService: RentRollService) { }
+  constructor(private rentRollService: RentRollService, private http: HttpClient) { }
+
+
+  selectedFile: File | null = null;
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
+  onSubmit() {
+    if (this.selectedFile) {
+      const formData = new FormData();
+      formData.append('excelFile', this.selectedFile);
+
+      this.http
+        .post('your-backend-api-url', formData)
+        .subscribe((response) => {
+          console.log('API Response:', response);
+          // Handle the API response as needed
+        });
+    }
+  }
 
   ngOnInit(): void {
     this.rentRollService.getRentRoll().subscribe((event) => {
       switch (event.type) {
         case HttpEventType.Sent: {
-          console.log("request has been made");
+          console.log("On init request has been made");
           break;
         }
         case HttpEventType.ResponseHeader: {
@@ -91,27 +112,44 @@ export class RentRollComponent implements OnInit {
     this.dataReady.next();
   }
 
-  uploadDocument() {
+  uploadDocument(e: Event) {
+    e.preventDefault()
     console.log("upload document triggered")
     const fileInput = document.getElementById('fileInput') as HTMLInputElement
+    console.log(fileInput.files)
     if (fileInput && fileInput.files && fileInput.files.length > 0) {
       const file = fileInput.files[0];
-      console.log("Uploading file:");
-      console.log(file);
+      console.log("Uploading file:", file);
       let formData = new FormData()
-      formData.append('file', file)
-      // console.log('Form Data:')
-      // formData.forEach((value, key) => {
-      //   console.log(key, value);
-      // });
-      // this.rentRollService.upload(formData).subscribe()
+      formData.append('content', file)
+      console.log("FORM DATA:");
+      formData.forEach((value,key) => {
+        console.log(key, value)
+      })
       this.rentRollService.upload(formData).subscribe()
-
     } else {
       console.log("File upload error.");
-    }
-    
+    } 
   }
 
-    
-}
+  getData() {
+    this.rentRollService.getExcelData().subscribe((event) => {
+      switch (event.type) {
+        case HttpEventType.Sent: {
+          console.log("Get request made");
+          break;
+        }
+        case HttpEventType.ResponseHeader: {
+          console.log('request success');
+          break;
+        }
+        case HttpEventType.Response: {
+          const response = event.body.content
+          
+          console.log(response.body.content)
+          break;
+        }
+      }
+    });
+  }
+}  
