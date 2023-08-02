@@ -18,6 +18,7 @@ export class LoginService {
       console.log(environment.apiEndpoint)
    }
     login(user: Login) {
-      return this.http.post<Login>(`${environment.apiEndpoint}/login`, user)
+
+      return this.http.post<Login>(`http://127.0.0.1:8000/api/users/`, user)
     }
 }
