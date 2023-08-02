@@ -10,6 +10,7 @@ import { RequestInterceptor } from './request.interceptor';
 import { RentRollBarChartComponent } from './rent-roll-bar-chart/rent-roll-bar-chart.component';
 import { UserComponent } from './user/user.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -24,7 +25,8 @@ import { NotfoundComponent } from './notfound/notfound.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [{
     provide: APP_SERVICE_CONFIG,
