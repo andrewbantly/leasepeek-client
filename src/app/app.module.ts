@@ -8,6 +8,8 @@ import { APP_CONFIG, APP_SERVICE_CONFIG } from './AppConfig/appconfig.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RequestInterceptor } from './request.interceptor';
 import { RentRollBarChartComponent } from './rent-roll-bar-chart/rent-roll-bar-chart.component';
+import { UserComponent } from './user/user.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 
 
@@ -15,7 +17,9 @@ import { RentRollBarChartComponent } from './rent-roll-bar-chart/rent-roll-bar-c
   declarations: [
     AppComponent,
     RentRollComponent,
-    RentRollBarChartComponent
+    RentRollBarChartComponent,
+    UserComponent,
+    NotfoundComponent
   ],
   imports: [
     BrowserModule,
