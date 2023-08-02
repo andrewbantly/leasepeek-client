@@ -16,8 +16,8 @@ export class LoginService {
   constructor(@Inject(APP_SERVICE_CONFIG) private config: Appconfig, private http: HttpClient) { 
       console.log('api end point:');
       console.log(environment.apiEndpoint)
-    }
+   }
     login(user: Login) {
-      return this.http.post<Login>('/api/login', user)
+      return this.http.post<Login>(`${environment.apiEndpoint}/login`, user)
     }
 }
