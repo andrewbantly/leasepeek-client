@@ -17,6 +17,7 @@ export class LoginComponent {
   user : Login = {
     username: "",
     password: "",
+    type: "login",
   }
   message : string = "";
 
