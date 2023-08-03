@@ -14,11 +14,18 @@ import { NewUserService } from './new-user.service';
   imports: [FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
 })
 export class NewUserComponent {
-
-  constructor(private signupService: NewUserService) {}
   user : NewUser = {
     username: "",
     password: "",
     type: "new",
+  }
+
+  constructor(private signupService: NewUserService) {}
+
+  signUp(signupForm: NgForm) {
+    this.signupService.signUpUser(this.user).subscribe((data) => {
+      console.log("SIGN UP DATA")
+      console.log(data)
+    })
   }
 }

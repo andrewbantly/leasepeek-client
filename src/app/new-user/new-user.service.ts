@@ -11,8 +11,8 @@ export class NewUserService {
 
   constructor(@Inject(APP_SERVICE_CONFIG) private config: Appconfig, private http: HttpClient) { }
  
-  login(user: NewUser) {
+  signUpUser(user: NewUser) {
     console.log("user", user)
-    // return this.http.post<Login>(`http://127.0.0.1:8000/api/users/`, user)
+    return this.http.post<NewUser>(`http://127.0.0.1:8000/api/users/`, user)
   }
 }
