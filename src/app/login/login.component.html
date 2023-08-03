@@ -5,12 +5,28 @@
     <form #loginForm="ngForm" class="example-form" (ngSubmit)="login(loginForm)">
         <mat-form-field class="example-full-width">
             <mat-label>Username</mat-label>
-            <input matInput placeholder="Murphy" required minlength="1" maxlength="20" type="text" name="username">
+            <input 
+            matInput 
+            placeholder="Murphy" 
+            required minlength="1" 
+            maxlength="20" 
+            type="text" 
+            name="username"
+            [(ngModel)]="user.username"
+            >
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
             <mat-label>Password</mat-label>
-            <input matInput placeholder="Treats" required minlength="8" type="password" name="password">
+            <input 
+            matInput 
+            placeholder="Treats" 
+            required 
+            minlength="8"
+            type="password" 
+            name="password"
+            [(ngModel)]="user.password"
+            >
         </mat-form-field>
         <button mat-flat-button color="primary" type="submit">Submit</button>
     </form>
