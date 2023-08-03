@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Type } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { NewUser } from './new-user';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -20,12 +20,14 @@ export class NewUserComponent {
     type: "new",
   }
 
+  message: string = ""
+
+
   constructor(private signupService: NewUserService) {}
 
   signUp(signupForm: NgForm) {
     this.signupService.signUpUser(this.user).subscribe((data) => {
-      console.log("SIGN UP DATA")
-      console.log(data)
+      this.message = data.toString()
     })
   }
 }

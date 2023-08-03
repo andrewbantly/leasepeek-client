@@ -9,6 +9,7 @@ import { NewUser } from './new-user';
 })
 export class NewUserService {
 
+
   constructor(@Inject(APP_SERVICE_CONFIG) private config: Appconfig, private http: HttpClient) { }
  
   signUpUser(user: NewUser) {
