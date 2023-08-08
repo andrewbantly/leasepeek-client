@@ -11,7 +11,6 @@ import { RentRollBarChartComponent } from './rent-roll-bar-chart/rent-roll-bar-c
 import { UserComponent } from './user/user.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NewUserComponent } from './new-user/new-user.component';
 
 
 
