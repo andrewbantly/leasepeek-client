@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { LoginService } from './login.service';
 import { ApiService } from '../api/api.service';
 import { Login } from './login';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'rroll-login',
@@ -23,7 +24,7 @@ export class LoginComponent {
   }
   message : string = "";
 
-  constructor(private loginService: LoginService, private apiService: ApiService) { }
+  constructor(private loginService: LoginService, private apiService: ApiService, private router: Router) { }
 
   login(loginForm: NgForm) {
     console.log("Login form:")
@@ -43,6 +44,7 @@ export class LoginComponent {
     this.apiService.postData(user).subscribe(
       response => {
         console.log('Response:', response);
+        this.router.navigate(['/profile']);
       },
       error => {
         console.error('Error:', error);
