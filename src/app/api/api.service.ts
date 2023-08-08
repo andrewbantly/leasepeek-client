@@ -24,17 +24,26 @@ export class ApiService {
     return headers;
   }
 
-  postData(data: any): Observable<any> {
+  loginUser(data: any): Observable<any> {
     const url = `${this.baseUrl}/api/login`;
     const headers = this.getHeaders();
-    console.log("post data working?")
+    console.log("post user data")
     return this.http.post(url, data, { withCredentials: true, headers });
   }
 
-    userData(): Observable<any> {
+  newUser(data:any): Observable<any> {
+    const url = `${this.baseUrl}/api/register`;
+    const headers = this.getHeaders();
+    console.log("sign up user data");
+    return this.http.post(url, data, {
+      withCredentials: true, headers
+    })
+  }
+
+  checkUserData(): Observable<any> {
     const url = `${this.baseUrl}/api/user`;
     const headers = this.getHeaders();
-    console.log("post data working?")
-    return this.http.post(url, { headers });
+    console.log("get user data")
+    return this.http.get(url, { withCredentials: true, headers });
   }
 }
