@@ -19,7 +19,7 @@ export class ApiService {
     const csrfToken = this.getCSRFToken();
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'X-CSRFToken': csrfToken || ''
+      'X-CSRFToken': csrfToken || '',
     });
     return headers;
   }
@@ -28,6 +28,13 @@ export class ApiService {
     const url = `${this.baseUrl}/api/login`;
     const headers = this.getHeaders();
     console.log("post data working?")
-    return this.http.post(url, data, { headers });
+    return this.http.post(url, data, { withCredentials: true, headers });
+  }
+
+    userData(): Observable<any> {
+    const url = `${this.baseUrl}/api/user`;
+    const headers = this.getHeaders();
+    console.log("post data working?")
+    return this.http.post(url, { headers });
   }
 }

@@ -15,10 +15,11 @@ import { Login } from './login';
   imports: [FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
 })
 export class LoginComponent {
+  currentUser: boolean | undefined;
   user : Login = {
     username: "",
     password: "",
-    type: "login",
+    email: "",
   }
   message : string = "";
 
