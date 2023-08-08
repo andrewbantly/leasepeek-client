@@ -1,8 +1,56 @@
-<div>
+<div *ngIf="showLoginForm">
     <h1>Login</h1>
 </div>
-<div class="flex center">
+<div *ngIf="showLoginForm" class="flex center">
     <form #loginForm="ngForm" class="example-form" (ngSubmit)="login(loginForm)">
+        <mat-form-field class="example-full-width">
+            <mat-label>Email</mat-label>
+            <input 
+            matInput 
+            placeholder="Murphy@dog.com" 
+            required minlength="1" 
+            maxlength="20" 
+            type="text" 
+            name="email"
+            [(ngModel)]="user.email"
+            >
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Password</mat-label>
+            <input 
+            matInput 
+            placeholder="Treats" 
+            required 
+            minlength="8"
+            type="password" 
+            name="password"
+            [(ngModel)]="user.password"
+            >
+        </mat-form-field>
+        <button mat-flat-button color="primary" type="submit">Submit</button>
+        <button mat-flat-button color="accent" (click)="changeForm()">Sign Up</button>
+    </form>
+</div>
+
+<div *ngIf="!showLoginForm">
+    <h1>Sign up</h1>
+</div>
+<div *ngIf="!showLoginForm" class="flex center">
+    <form #loginForm="ngForm" class="example-form" (ngSubmit)="signUp(loginForm)">
+        <mat-form-field class="example-full-width">
+            <mat-label>Email</mat-label>
+            <input 
+            matInput 
+            placeholder="Murphy@dog.com" 
+            required minlength="1" 
+            maxlength="20" 
+            type="text" 
+            name="email"
+            [(ngModel)]="user.email"
+            >
+        </mat-form-field>
+
         <mat-form-field class="example-full-width">
             <mat-label>Username</mat-label>
             <input 
@@ -28,7 +76,18 @@
             [(ngModel)]="user.password"
             >
         </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <mat-label>Confirm password</mat-label>
+            <input 
+            matInput 
+            placeholder="Treats" 
+            required 
+            minlength="8"
+            type="password" 
+            name="passwordConfirm"
+            >
+        </mat-form-field>
         <button mat-flat-button color="primary" type="submit">Submit</button>
+        <button mat-flat-button color="accent" (click)="changeForm()">Log in</button>
     </form>
 </div>
-{{message}}
