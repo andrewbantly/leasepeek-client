@@ -9,10 +9,6 @@ import { APP_SERVICE_CONFIG } from '../AppConfig/appconfig.service';
   providedIn: 'root'
 })
 export class LoginService {
-  // userLogin : Login = {
-  //   username: "",
-  //   password: ""
-  // }
   constructor(@Inject(APP_SERVICE_CONFIG) private config: Appconfig, private http: HttpClient) { 
       console.log('api end point:');
       console.log(environment.apiEndpoint)
