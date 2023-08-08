@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
       (res) => {
         this.currentUser = true;
         console.log("ngOnInit active user")
+        this.router.navigate(['/profile'])
       },
       (error) => {
         this.currentUser = false;

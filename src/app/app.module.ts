@@ -19,7 +19,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent,
     RentRollComponent,
     RentRollBarChartComponent,
-    UserComponent,
     NotfoundComponent,
   ],
   imports: [
