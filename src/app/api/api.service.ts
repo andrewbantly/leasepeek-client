@@ -59,10 +59,11 @@ export class ApiService {
     const url = `${this.baseUrl}/upload`;
     const csrfToken = this.getCSRFToken();
     const headers = new HttpHeaders({
-      'X-CSRFToken': csrfToken || '',
+        'X-CSRFToken': csrfToken || '',
     });
     console.log('Headers:', headers);
     return this.http.post(url, formData, { withCredentials: true, headers })
-  }
+}
+
 
 }
