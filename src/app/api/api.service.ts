@@ -28,8 +28,10 @@ export class ApiService {
     const url = `${this.baseUrl}/logout`;
     const headers = this.getHeaders();
     console.log("logout user call");
-    return this.http.post(url, { withCredentials: true, headers });
-  }
+    return this.http.post(url, {}, { withCredentials: true, headers });
+}
+
+
   loginUser(data: any): Observable<any> {
     const url = `${this.baseUrl}/login`;
     const headers = this.getHeaders();
