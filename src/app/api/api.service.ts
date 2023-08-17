@@ -55,4 +55,14 @@ export class ApiService {
     return this.http.get(url, { withCredentials: true, headers });
   }
 
+  uploadExcelFile(formData: FormData): Observable<any> {
+    const url = `${this.baseUrl}/upload`;
+    const csrfToken = this.getCSRFToken();
+    const headers = new HttpHeaders({
+      'X-CSRFToken': csrfToken || '',
+    });
+    console.log('Headers:', headers);
+    return this.http.post(url, formData, { withCredentials: true, headers })
+  }
+
 }
