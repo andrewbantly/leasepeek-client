@@ -1,3 +1,8 @@
 <h2>Upload new rent roll data:</h2>
-<input type="file" (change)="onFileChange($event)">
-<button (click)="uploadFile()">Upload</button>
+<input type="file" class="file-input" (change)="onFileChange($event)" #fileUpload>
+
+<div>
+    {{fileName || "No file uploaded yet."}}
+    <button *ngIf="!fileName" mat-flat-button color="primary" (click)="fileUpload.click()">Upload</button>
+    <button *ngIf="fileName" mat-flat-button color="accent" (click)="uploadFile()">Submit</button>
+</div>

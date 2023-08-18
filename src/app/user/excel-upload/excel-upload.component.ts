@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ApiService } from 'src/app/api/api.service';
 
@@ -8,19 +9,23 @@ import { ApiService } from 'src/app/api/api.service';
 })
 export class ExcelUploadComponent {
 
-  constructor(private apiService: ApiService) {}
+  fileName = ''
+
+  constructor(private apiService: ApiService, private http: HttpClient) {}
+  
   selectedFile: File | null = null;
 
   onFileChange(event:any) {
-    console.log("FILE CHANGED:", event.target.files[0])
+    console.log("FILE CHANGED:", event.target.files)
     this.selectedFile = <File>event.target.files[0];
+    this.fileName = this.selectedFile.name;
   }
 
   uploadFile() {
     if (this.selectedFile) {
       console.log("UPLOAD FILE")
       const formData = new FormData();
-      formData.append('file', this.selectedFile, this.selectedFile.name);
+      formData.append(this.selectedFile.name, this.selectedFile);
       console.log("form data:", formData)
       this.apiService.uploadExcelFile(formData).subscribe(
         response => console.log("File uploaded and parsed successfully."),
