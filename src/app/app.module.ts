@@ -11,6 +11,9 @@ import { RentRollBarChartComponent } from './rent-roll-bar-chart/rent-roll-bar-c
 import { UserComponent } from './user/user.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ExcelUploadComponent } from './user/excel-upload/excel-upload.component';
+import { MatButtonModule } from '@angular/material/button';
+
 
 
 
@@ -20,12 +23,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RentRollComponent,
     RentRollBarChartComponent,
     NotfoundComponent,
+    UserComponent,
+    ExcelUploadComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatButtonModule,
   ],
   providers: [{
     provide: APP_SERVICE_CONFIG,
