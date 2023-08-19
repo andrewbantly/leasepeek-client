@@ -7,9 +7,9 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
   private baseUrl = 'http://localhost:8000/api';
-
+  
   constructor(private http: HttpClient) { }
-
+  
   private getCSRFToken(): string | null {
     const csrfToken = document.cookie.match(/csrftoken=([^;]*)/);
     return csrfToken ? csrfToken[1] : null;
@@ -29,9 +29,9 @@ export class ApiService {
     const headers = this.getHeaders();
     console.log("logout user call");
     return this.http.post(url, {}, { withCredentials: true, headers });
-}
-
-
+  }
+  
+  
   loginUser(data: any): Observable<any> {
     const url = `${this.baseUrl}/login`;
     const headers = this.getHeaders();
@@ -47,14 +47,14 @@ export class ApiService {
       withCredentials: true, headers
     })
   }
-
+  
   checkUserData(): Observable<any> {
     const url = `${this.baseUrl}/user`;
     const headers = this.getHeaders();
     console.log("get user data");
     return this.http.get(url, { withCredentials: true, headers });
   }
-
+  
   uploadExcelFile(formData: FormData): Observable<any> {
     const url = `${this.baseUrl}/upload`;
     const csrfToken = this.getCSRFToken();
@@ -64,6 +64,6 @@ export class ApiService {
     console.log('Headers:', headers);
     return this.http.post(url, formData, { withCredentials: true, headers })
 }
-
-
+  
+  
 }
