@@ -27,7 +27,6 @@ export class ApiService {
   logoutUser(): Observable<any> {
     const url = `${this.baseUrl}/logout`;
     const headers = this.getHeaders();
-    console.log("logout user call");
     return this.http.post(url, {}, { withCredentials: true, headers });
   }
   
@@ -35,14 +34,12 @@ export class ApiService {
   loginUser(data: any): Observable<any> {
     const url = `${this.baseUrl}/login`;
     const headers = this.getHeaders();
-    console.log("post user data")
     return this.http.post(url, data, { withCredentials: true, headers });
   }
 
   newUser(data:any): Observable<any> {
     const url = `${this.baseUrl}/register`;
     const headers = this.getHeaders();
-    console.log("sign up user data");
     return this.http.post(url, data, {
       withCredentials: true, headers
     })
