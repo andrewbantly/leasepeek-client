@@ -12,7 +12,7 @@ import * as XLSX from 'xlsx';
 })
 
 export class RentRollComponent implements OnInit {
-  clientName: string = "Sam";
+  clientName: string = "";
   totalBytes: number = 0;
   unitList: Unit[] = [];
   rents: number[] = []
