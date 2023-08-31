@@ -1,4 +1,4 @@
-export interface UserData {
+export interface UserRentData {
     building: string;
     date: string;
 }
