@@ -19,6 +19,7 @@ export class RentDataListComponent implements OnInit {
       response => {
         console.log("Loading User Data")
         console.log("response data:", response.data)
+        this.dataList = response.data
       }
     )
   }
