@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ExcelUploadComponent } from './user/excel-upload/excel-upload.component';
 import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import { RentDataListComponent } from './user/rent-data-list/rent-data-list.component';
 
 
 
@@ -26,6 +27,7 @@ import {MatIconModule} from '@angular/material/icon';
     NotfoundComponent,
     UserComponent,
     ExcelUploadComponent,
+    RentDataListComponent,
   ],
   imports: [
     BrowserModule,
