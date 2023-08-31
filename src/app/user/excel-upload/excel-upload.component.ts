@@ -35,7 +35,17 @@ export class ExcelUploadComponent implements OnInit{
       const formData = new FormData();
       formData.append('file', this.selectedFile);
       this.apiService.uploadExcelFile(formData).subscribe(
-        response => console.log("File uploaded and parsed successfully."),
+        dataUploadResponse => {
+          console.log(dataUploadResponse.message)
+          console.log("Rent Roll Date:", dataUploadResponse.date)
+          const rentRollDate = dataUploadResponse.date
+      this.apiService.loadExcelData(rentRollDate).subscribe(
+        response => {
+          console.log("Data uploaded and loaded respone:", response)
+          console.log("Next thing to do is navigate")
+        }
+      )
+        },
         error => console.error("Error uploading file")
       )
     }
@@ -45,7 +55,8 @@ export class ExcelUploadComponent implements OnInit{
   }
   loadFile() {
     console.log("Load file button clicked");
-    this.apiService.loadExcelData().subscribe(
+    const date = '03-27-2023'
+    this.apiService.loadExcelData(date).subscribe(
       response => { 
         console.log("Data loaded:")
         console.log(response)
