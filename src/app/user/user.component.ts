@@ -18,6 +18,8 @@ export class UserComponent implements OnInit {
     email: ""
   };
 
+
+  
   constructor(private loginService: LoginService, private apiService: ApiService, private router: Router, private http: HttpClient) { }
 
 
