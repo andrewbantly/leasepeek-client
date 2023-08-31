@@ -51,6 +51,16 @@ export class ApiService {
     console.log("get user data");
     return this.http.get(url, { withCredentials: true, headers });
   }
+
+  loadUserDataList(): Observable<any> {
+  const url = `${this.baseUrl}/data/user`;
+  const csrfToken = this.getCSRFToken();
+  const headers = new HttpHeaders({
+    'X-CSRFToken': csrfToken || '',
+  });
+  console.log("Loading excel data")
+  return this.http.get(url, { withCredentials: true, headers})
+  }
   
   uploadExcelFile(formData: FormData): Observable<any> {
     const url = `${this.baseUrl}/data/upload`;
