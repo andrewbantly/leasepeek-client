@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  private baseUrl = 'http://localhost:8000/api';
+  private baseUrl = 'http://localhost:8000/';
   
   constructor(private http: HttpClient) { }
   
@@ -25,20 +25,20 @@ export class ApiService {
   }
   
   logoutUser(): Observable<any> {
-    const url = `${this.baseUrl}/logout`;
+    const url = `${this.baseUrl}/user/logout`;
     const headers = this.getHeaders();
     return this.http.post(url, {}, { withCredentials: true, headers });
   }
   
   
   loginUser(data: any): Observable<any> {
-    const url = `${this.baseUrl}/login`;
+    const url = `${this.baseUrl}/user/login`;
     const headers = this.getHeaders();
     return this.http.post(url, data, { withCredentials: true, headers });
   }
 
   newUser(data:any): Observable<any> {
-    const url = `${this.baseUrl}/register`;
+    const url = `${this.baseUrl}/user/register`;
     const headers = this.getHeaders();
     return this.http.post(url, data, {
       withCredentials: true, headers
@@ -46,20 +46,30 @@ export class ApiService {
   }
   
   checkUserData(): Observable<any> {
-    const url = `${this.baseUrl}/user`;
+    const url = `${this.baseUrl}/user/load`;
     const headers = this.getHeaders();
     console.log("get user data");
     return this.http.get(url, { withCredentials: true, headers });
   }
   
   uploadExcelFile(formData: FormData): Observable<any> {
-    const url = `${this.baseUrl}/upload`;
+    const url = `${this.baseUrl}/data/upload`;
     const csrfToken = this.getCSRFToken();
     const headers = new HttpHeaders({
         'X-CSRFToken': csrfToken || '',
     });
     console.log('Headers:', headers);
     return this.http.post(url, formData, { withCredentials: true, headers })
+}
+
+loadExcelData(): Observable<any> {
+  const url = `${this.baseUrl}/data/read`;
+  const csrfToken = this.getCSRFToken();
+  const headers = new HttpHeaders({
+    'X-CSRFToken': csrfToken || '',
+  });
+  console.log("Loading excel data")
+  return this.http.get(url, { withCredentials: true, headers })
 }
   
   

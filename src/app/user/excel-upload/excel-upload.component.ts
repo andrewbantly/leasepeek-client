@@ -43,4 +43,14 @@ export class ExcelUploadComponent implements OnInit{
       console.log("FILE UPLOAD ERROR")
     }
   }
+  loadFile() {
+    console.log("Load file button clicked");
+    this.apiService.loadExcelData().subscribe(
+      response => { 
+        console.log("Data loaded:")
+        console.log(response)
+      },
+      error => console.error("Error loading file")
+    )
+  }
 }
