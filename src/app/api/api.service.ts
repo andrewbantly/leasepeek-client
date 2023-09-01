@@ -72,8 +72,8 @@ export class ApiService {
     return this.http.post(url, formData, { withCredentials: true, headers })
 }
 
-loadExcelData(date: string): Observable<any> {
-  const url = `${this.baseUrl}/data/read?date=${date}`;
+loadExcelData(objectId: string): Observable<any> {
+  const url = `${this.baseUrl}/data/read?id=${objectId}`;
   const csrfToken = this.getCSRFToken();
   const headers = new HttpHeaders({
     'X-CSRFToken': csrfToken || '',
