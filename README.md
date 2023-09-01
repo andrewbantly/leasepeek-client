@@ -1,39 +1,16 @@
+### Objective
+The frontend of this application should allow a user signup  to upload an excel file (such as .xlsx), click on previous data uploads, and visualize data. It should also reroute a user who is not logged in / signed up. 
+
+### Programming language: TypeScript
+### Framework framework: Angular
+
 ## User Stories
 
 1. As a user, I want to see a dashboard of information when I login
 2. As a user I want to sort my units by preformance 
 3. As a user I want to click into a profile of a unit and see unit information
 
-
-
-### Information  
-- Dashboard
-    - Units occupied 
-    - Unit Profit & Revenue 
-
-
-
-- Unit profile
-    - Address
-    - Occupant(s)
-    - Pets Y/N
-    - Sq ft
-    - Rent 
-    - Lease Status 
-        - Month to month
-        - Signing Date
-    - Amenitites 
-    - Maintenance 
-    - Profit 
-        - Monthly average
-    - Next Payment Due
-    - payment invoices 
-
-
-### Stretch ideas
-Smart Lights & Sensors - sending energy use data, costs, use to app
-
-### Routing
+## Routing
 | HTTP METHOD | URL                     | CRUD    | Description                                                       | View                   |     |     |     |
 |:----------- |:----------------------- |:------- |:----------------------------------------------------------------- |:---------------------- | --- | --- | --- |
 | GET         | /                       | READ    | Load homepage with login form                                     | Home / User login      |     |     |     |
@@ -48,3 +25,4 @@ Smart Lights & Sensors - sending energy use data, costs, use to app
 | DELETE      | /:userName/:uploadId    | DESTROY | Removes rent roll upload from database                            |                        |     |     |     |
 |             |                         |         |                                                                   |                        |     |     |     |
 | GET         | /:userName/:uploadId    | READ    | Display rent roll data visualizations                             | Rent Roll Data Visuals |     |     |     |
+
