@@ -1,3 +1,9 @@
-<p>data-visualization works!</p>
+<p>data viz comp works!</p>
 <p>{{message}}</p>
-<h2>{{objectId}}</h2>
+<h2>{{building}}</h2>
+<h3>{{asOfDate}}</h3>
+<ul>
+    <li *ngFor="let item of marketRentxDate">
+        Date: {{ item.date }}, Rent: {{ item.marketRent }}
+    </li>
+</ul>
