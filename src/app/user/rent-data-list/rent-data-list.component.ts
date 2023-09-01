@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { RentDataList } from './rent-data-list';
 import { ApiService } from 'src/app/api/api.service';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class RentDataListComponent implements OnInit {
 
   @Input() dataList: RentDataList[] = []
 
-  constructor(private apiService: ApiService, private http: HttpClient) { }
+  constructor(private apiService: ApiService, private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
     this.apiService.loadUserDataList().subscribe(
@@ -25,7 +26,8 @@ export class RentDataListComponent implements OnInit {
     )
   }
 
-  selectData(building:string, date:string) {
-    console.log("Data selected:", date, building)
+  selectData(objectId:string) {
+    console.log("Data ID selected:", objectId);
+    this.router.navigate([`/data/${objectId}`])
   }
 }
