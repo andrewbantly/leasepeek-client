@@ -1,5 +1,11 @@
-<ul>
+<!-- <ul>
   <li *ngFor="let item of dataList">
     Building: {{item.building}}, Date: {{item.date}}
   </li>
-</ul>
+</ul> -->
+<mat-list *ngFor="let item of dataList">
+  <mat-list-item class="mat-list" (click)="selectData(item.building, item.date)">
+    <span matListItemTitle>{{item.building}}</span>
+    <span matListItemLine>As of: {{item.date}}</span>
+  </mat-list-item>
+</mat-list>

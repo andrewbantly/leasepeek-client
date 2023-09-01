@@ -3,10 +3,11 @@ import { RentDataList } from './rent-data-list';
 import { ApiService } from 'src/app/api/api.service';
 import { HttpClient } from '@angular/common/http';
 
+
 @Component({
   selector: 'rroll-rent-data-list',
   templateUrl: './rent-data-list.component.html',
-  styleUrls: ['./rent-data-list.component.scss']
+  styleUrls: ['./rent-data-list.component.scss'],
 })
 export class RentDataListComponent implements OnInit {
 
@@ -24,4 +25,7 @@ export class RentDataListComponent implements OnInit {
     )
   }
 
+  selectData(building:string, date:string) {
+    console.log("Data selected:", date, building)
+  }
 }

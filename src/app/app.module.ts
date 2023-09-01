@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ExcelUploadComponent } from './user/excel-upload/excel-upload.component';
 import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import {MatListModule} from '@angular/material/list';
 import { RentDataListComponent } from './user/rent-data-list/rent-data-list.component';
 
 
@@ -36,6 +37,7 @@ import { RentDataListComponent } from './user/rent-data-list/rent-data-list.comp
     BrowserAnimationsModule,
     MatButtonModule,
     MatIconModule,
+    MatListModule,
   ],
   providers: [{
     provide: APP_SERVICE_CONFIG,
