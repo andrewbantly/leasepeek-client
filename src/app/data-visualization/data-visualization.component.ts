@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../api/api.service';
 // import * as d3 from 'd3';
 import { MarketRentXDate } from './data-visualization';
+import { ViewChild } from '@angular/core';
+import { MarketRentMoveInComponent } from './market-rent-move-in/market-rent-move-in.component';
 
 @Component({
   selector: 'rroll-data-visualization',
@@ -16,7 +18,8 @@ export class DataVisualizationComponent implements OnInit {
   asOfDate: string = "";
   message: string = "";
   rentData: any[] = [];
-  @Input() marketRentxDate: MarketRentXDate[] = [];
+  activeGraph: string = "marketRentxMoveIn"
+  @ViewChild(MarketRentMoveInComponent) marketRentMoveIn!: MarketRentMoveInComponent;
   
 
   constructor(private route: ActivatedRoute, private apiService: ApiService) { }
@@ -32,7 +35,8 @@ export class DataVisualizationComponent implements OnInit {
           this.asOfDate = dataLoadResponse[0].date;
           this.rentData = dataLoadResponse[0].data;
           console.log("true or false", this.rentData)
-          this.gatherRentxData(this.rentData)
+          this.marketRentMoveIn.gatherRentxData(this.rentData)
+          // this.gatherRentxData(this.rentData)
           this.message = ""
         }
       )
@@ -43,24 +47,23 @@ export class DataVisualizationComponent implements OnInit {
   }
 
 
-  gatherRentxData(data: any[]): void {
-    data.forEach(unit => {
-        if (unit.moveIn && unit.marketRent) {
-            const moveInDate = unit.moveIn;
-            const rent = unit.marketRent;
-            this.marketRentxDate.push({
-                date: moveInDate,
-                marketRent: rent
-            });
-        }
-    });
-    this.marketRentxDate.sort((a, b) => {
-      if (a.date < b.date) return -1;
-      if (a.date > b.date) return 1;
-      return 0;
-  });
-  
-}
+//   gatherRentxData(data: any[]): void {
+//     data.forEach(unit => {
+//         if (unit.moveIn && unit.marketRent) {
+//             const moveInDate = unit.moveIn;
+//             const rent = unit.marketRent;
+//             this.marketRentxDate.push({
+//                 date: moveInDate,
+//                 marketRent: rent
+//             });
+//         }
+//     });
+//     this.marketRentxDate.sort((a, b) => {
+//       if (a.date < b.date) return -1;
+//       if (a.date > b.date) return 1;
+//       return 0;
+//   });
+// }
 
 
 }

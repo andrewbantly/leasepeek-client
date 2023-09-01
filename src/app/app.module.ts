@@ -16,6 +16,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import { RentDataListComponent } from './user/rent-data-list/rent-data-list.component';
 import { DataVisualizationComponent } from './data-visualization/data-visualization.component';
+import { MarketRentMoveInComponent } from './data-visualization/market-rent-move-in/market-rent-move-in.component';
 
 
 
@@ -29,6 +30,7 @@ import { DataVisualizationComponent } from './data-visualization/data-visualizat
     ExcelUploadComponent,
     RentDataListComponent,
     DataVisualizationComponent,
+    MarketRentMoveInComponent,
   ],
   imports: [
     BrowserModule,
