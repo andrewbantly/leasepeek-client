@@ -1,5 +1,6 @@
 export interface MarketRentXDate {
-    date: string;
+    date: Date;
     marketRent: number;
     unitType: string;
+    unitNumber: number;
 }

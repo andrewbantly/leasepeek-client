@@ -20,13 +20,15 @@ export class MarketRentMoveInComponent {
   gatherRentxData(data: any[]): void {
     data.forEach(unit => {
       if (unit.moveIn && unit.marketRent) {
-        const moveInDate = unit.moveIn;
+        const moveInDate = new Date(unit.moveIn);
         const rent = unit.marketRent;
-        const unitType = unit.unitType
+        const unitType = unit.unitType;
+        const unitNumber = unit.unit;
         this.marketRentxDate.push({
           date: moveInDate,
           marketRent: rent,
           unitType: unitType,
+          unitNumber: unitNumber,
         });
       }
     });
@@ -44,7 +46,6 @@ export class MarketRentMoveInComponent {
     const legendSize = 20;
     const legendSpacing = 4;
     const totalLegendHeight = legendItems * (legendSize + legendSpacing) + this.margin.bottom;
-    const legendTitleGap = 25;
 
     this.height = 400 + totalLegendHeight;
 
@@ -79,20 +80,48 @@ export class MarketRentMoveInComponent {
       .attr('transform', `translate(${this.margin.left}, 0)`)
       .call(yAxis);
 
+    const tooltip = svg.append('g')
+      .attr('class', 'tooltip')
+      .style('display', 'none');
+
+    tooltip.append('text')
+      .attr('x', 10)
+      .attr('dy', -10)
+      .style('font-size', '12px')
+      .style('font-weight', 'bold');
 
     // Drawing the lines for each unit type
     const line = d3.line<MarketRentXDate>()
       .x(d => xScale(new Date(d.date)))
       .y(d => yScale(d.marketRent));
 
-    grouped.forEach((value, key) => {
-      svg.append('path')
-        .datum(value)
-        .attr('fill', 'none')
-        .attr('stroke', colorScale(key))
-        .attr('stroke-width', 2)
-        .attr('d', line);
-    });
+      grouped.forEach((value, key) => {
+        svg.append('path')
+          .datum(value)
+          .attr('fill', 'none')
+          .attr('stroke', colorScale(key))
+          .attr('stroke-width', 2)
+          .attr('d', line)
+          .on('mouseover', (event, d) => {
+            tooltip.style('display', 'block');
+          })
+          .on('mousemove', (event, d) => {
+            const [xMouse, yMouse] = d3.pointer(event);
+    
+            const xValue = xScale.invert(xMouse - this.margin.left);
+            // const yValue = yScale.invert(yMouse - this.margin.top);
+    
+            const closestPoint = d.reduce((prev, curr) => Math.abs(curr.date.getTime() - xValue.getTime()) < Math.abs(prev.date.getTime() - xValue.getTime()) ? curr : prev);
+    
+            tooltip.select('text')
+              .text(`Unit ${closestPoint.unitNumber}: $${closestPoint.marketRent}`)
+              .attr('x', xMouse)
+              .attr('y', yMouse - 10);
+          })
+          .on('mouseout', () => {
+            tooltip.style('display', 'none');
+          });
+      });
 
     svg.append("text")
       .attr("transform", "translate(" + (this.width / 2) + " ," + (this.height - this.margin.bottom - totalLegendHeight + 45) + ")")
@@ -108,7 +137,6 @@ export class MarketRentMoveInComponent {
       .attr("dy", "1em")
       .style("text-anchor", "middle")
       .text("Market Rent");
-
 
     const legend = svg.selectAll('.legend')
       .data(grouped.keys())
