@@ -7,6 +7,6 @@
     <mat-tab label="Vacancy"></mat-tab>
 </mat-tab-group>
 
-<rroll-market-rent-move-in *ngIf="activeGraph === 'marketRentxMoveIn'"></rroll-market-rent-move-in>
+<rroll-market-rent-move-in [ngStyle]="{ display: activeGraph === 'marketRentxMoveIn' ? 'block' : 'none' }"></rroll-market-rent-move-in>
 
-<rroll-vacancy *ngIf="activeGraph === 'vacancy'"></rroll-vacancy>
+<rroll-vacancy [ngStyle]="{ display: activeGraph === 'vacancy' ? 'block' : 'none' }"></rroll-vacancy>
