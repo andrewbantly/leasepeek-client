@@ -1,7 +1,8 @@
 <p>{{message}}</p>
 <h2>{{building}}</h2>
-<h3>{{asOfDate}}</h3>
-<p>Current graph: {{activeGraph}}</p>
+<h3>As of: {{asOfDate}}</h3>
+<button mat-flat-button (click)="navigateToProfile()">Back</button>
+
 <mat-tab-group (selectedTabChange)="onTabChanged($event)">
     <mat-tab label="Market Rent"></mat-tab>
     <mat-tab label="Vacancy"></mat-tab>

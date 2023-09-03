@@ -1,9 +1,10 @@
-import { AfterViewInit, Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component,  OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../api/api.service';
 import { ViewChild } from '@angular/core';
 import { MarketRentMoveInComponent } from './market-rent-move-in/market-rent-move-in.component';
 import { VacancyComponent } from './vacancy/vacancy.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'rroll-data-visualization',
@@ -22,7 +23,11 @@ export class DataVisualizationComponent implements OnInit {
   @ViewChild(VacancyComponent) vacancy!: VacancyComponent;
   
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService) { }
+  constructor(private route: ActivatedRoute, private apiService: ApiService, private router: Router) { }
+
+  navigateToProfile() {
+    this.router.navigate(['/profile'])
+  }
 
   ngOnInit(): void {
     this.objectId = this.route.snapshot.paramMap.get('objectId');
