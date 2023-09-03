@@ -43,15 +43,10 @@ export class DataVisualizationComponent implements OnInit {
     }
   }
 
-  loadData() {
-    console.log(this.marketRentMoveIn)
-  }
-
   onTabChanged(event: any) {
       switch (event.index) {
           case 0:
               this.activeGraph = 'marketRentxMoveIn';
-              this.loadData()
               break;
           case 1:
               this.activeGraph = 'vacancy';

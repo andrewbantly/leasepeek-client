@@ -13,7 +13,7 @@ export class MarketRentMoveInComponent {
 
   width = 800;
   height = 400;
-  margin = { top: 10, bottom: 50, left: 100, right: 50 };
+  margin = { top: 10, bottom: 50, left: 100, right: 150 };
 
   constructor(private el: ElementRef) { }
 
@@ -115,8 +115,7 @@ export class MarketRentMoveInComponent {
       .enter()
       .append('g')
       .attr('class', 'legend')
-      .attr('transform', (d, i) => `translate(${this.width - this.margin.right - 100}, ${this.height - totalLegendHeight + legendTitleGap + i * (legendSize + legendSpacing)})`);
-
+      .attr('transform', (d, i) => `translate(${this.width - this.margin.right + 20}, ${this.margin.top + i * (legendSize + legendSpacing) + 10})`);
 
     legend.append('rect')
       .attr('width', legendSize)
@@ -129,10 +128,11 @@ export class MarketRentMoveInComponent {
       .attr('y', legendSize - legendSpacing)
       .text(d => d);
 
-    const legendTitleYPosition = this.height - totalLegendHeight + 10;
+    const legendTitleXPosition = this.width - this.margin.right + 55;
+    const legendTitleYPosition = this.margin.top;
 
     svg.append('text')
-      .attr('x', this.width - this.margin.right - 50)  
+      .attr('x', legendTitleXPosition)
       .attr('y', legendTitleYPosition)
       .style("text-anchor", "middle")
       .text("Floor plans");
