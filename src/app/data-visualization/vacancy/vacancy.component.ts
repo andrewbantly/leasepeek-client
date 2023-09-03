@@ -77,7 +77,7 @@ export class VacancyComponent {
   initializeChart(data: { unitType: string, type: string, value: number }[]): void {
     const svgWidth = 800;
     const svgHeight = 400;
-    const margin = { top: 20, right: 150, bottom: 60, left: 40 };
+    const margin = { top: 20, right: 150, bottom: 60, left: 60 };
     const width = svgWidth - margin.left - margin.right;
     const height = svgHeight - margin.top - margin.bottom;
 
@@ -89,7 +89,7 @@ export class VacancyComponent {
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
     const z = d3.scaleOrdinal()
-      .range(["#98abc5", "#8a89a6", "#7b6888"]); // Colors for vacants, moveOuts, and occupied respectively
+      .range(["#98abc5", "#8a89a6", "#7b6888"]);
 
     const categories = Array.from(new Set(data.map(d => d.unitType)));
     const types = Array.from(new Set(data.map(d => d.type)));
@@ -116,6 +116,23 @@ export class VacancyComponent {
       .domain([0, d3.max(stackedData, d => d3.max(d, d => d[1])) || 0])
       .rangeRound([height, 0]).nice();
 
+    const tooltip = svg.append("g")
+      .attr("class", "tooltip")
+      .style("display", "none");  // Hide by default
+
+    tooltip.append("rect")
+      .attr("width", 60)
+      .attr("height", 20)
+      .attr("fill", "white")
+      .style("opacity", 0.8);
+
+    tooltip.append("text")
+      .attr("x", 30)  // Half of the tooltip width for centering
+      .attr("dy", "1.2em")
+      .style("text-anchor", "middle")
+      .attr("font-size", "12px")
+      .attr("font-weight", "bold");
+
     // Draw the stacked bars
     g.selectAll("g")
       .data(stackedData)
@@ -127,7 +144,37 @@ export class VacancyComponent {
       .attr("x", d => x0(String(d.data['unitType']))!)
       .attr("y", d => y(d[1]))
       .attr("height", d => y(d[0]) - y(d[1]))
-      .attr("width", x0.bandwidth());
+      .attr("width", x0.bandwidth())
+      .on("mouseover", function (event, d) {
+        if (this.parentNode) {
+          const type = (d3.select(this.parentNode as SVGGElement).datum() as { key: string }).key;
+          const coords = d3.pointer(event);
+          tooltip.style("display", null);
+          tooltip.attr("transform", `translate(${coords[0]},${coords[1]})`);
+          tooltip.select("text").text(`${type}: ${d[1] - d[0]}`);
+          // Adjusting tooltip rectangle width based on text width
+          const textWidth = (tooltip.select("text").node() as SVGTextElement).getBBox().width;
+          const rectWidth = textWidth + 15;
+          tooltip.select("rect").attr("width", rectWidth);  // Adding a little padding
+
+          tooltip.select("text")
+            .attr("x", rectWidth / 2)  // Centered horizontally
+            .attr("y", 0);  // Slightly above the vertical center
+
+          tooltip.style("display", null)
+            .attr("transform", `translate(${coords[0]},${coords[1]})`);
+
+          // Adjusting color using the z scale
+          tooltip.select("rect").style("fill", "black");
+          tooltip.select("text").style("fill", z(type) as string);
+          tooltip.select("text").style("text-anchor", "middle");
+        }
+      })
+      .on("mouseout", function () {
+        tooltip.style("display", "none");
+      });
+
+
 
     // Draw the Axes
     g.append("g")
@@ -135,24 +182,29 @@ export class VacancyComponent {
       .attr("transform", `translate(0,${height})`)
       .call(d3.axisBottom(x0));
 
-    const lastTick = y.ticks().pop();
+    // Add X-axis title
+    g.append("text")
+      .attr("transform",
+        "translate(" + (width / 2) + " ," +
+        (height + margin.top + 20) + ")") // Adjust the '20' as necessary to position your title
+      .style("text-anchor", "middle")
+      .text("Floor plans");
 
     g.append("g")
       .attr("class", "axis")
       .call(d3.axisLeft(y).ticks(null, "s"))
       .append("text")
-      .attr("x", 2)
-      .attr("y", y(lastTick ? lastTick : 0) + 0.5)
-      .attr("dy", "0.32em")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left)
+      .attr("x", 0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
       .attr("fill", "#000")
-      .attr("font-weight", "bold")
-      .attr("text-anchor", "start")
+      .attr("font-size", "14px")
       .text("Number of Units");
 
-    // Define some padding between the main chart area and the legend
-    const legendPadding = 20;
 
-    // Calculate starting position for the legend
+    const legendPadding = 20;
     const legendStartX = width + legendPadding;
 
     // Draw the legend
