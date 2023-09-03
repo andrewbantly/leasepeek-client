@@ -76,101 +76,108 @@ export class VacancyComponent {
 
   initializeChart(data: { unitType: string, type: string, value: number }[]): void {
     const svgWidth = 800;
-    const svgHeight = 500;
-    const margin = { top: 20, right: 20, bottom: 60, left: 40 };
+    const svgHeight = 400;
+    const margin = { top: 20, right: 150, bottom: 60, left: 40 };
     const width = svgWidth - margin.left - margin.right;
     const height = svgHeight - margin.top - margin.bottom;
 
-    const svg = d3.select("rroll-vacancy").append("svg")
-        .attr("width", svgWidth)
-        .attr("height", svgHeight);
+    const svg = d3.select(".vacancy-svg-container").append("svg")
+      .attr("width", svgWidth)
+      .attr("height", svgHeight);
 
     const g = svg.append("g")
-        .attr("transform", `translate(${margin.left},${margin.top})`);
+      .attr("transform", `translate(${margin.left},${margin.top})`);
 
     const z = d3.scaleOrdinal()
-        .range(["#98abc5", "#8a89a6", "#7b6888"]); // Colors for vacants, moveOuts, and occupied respectively
+      .range(["#98abc5", "#8a89a6", "#7b6888"]); // Colors for vacants, moveOuts, and occupied respectively
 
     const categories = Array.from(new Set(data.map(d => d.unitType)));
     const types = Array.from(new Set(data.map(d => d.type)));
 
-    const keys = types; // directly use types
+    const keys = types;
 
     // Preprocess data for stacking
     let processedData: any[] = categories.map(cat => {
-        let obj: any = { unitType: cat };
-        data.filter(d => d.unitType === cat).forEach(d => {
-            obj[d.type] = d.value;
-        });
-        return obj;
+      let obj: any = { unitType: cat };
+      data.filter(d => d.unitType === cat).forEach(d => {
+        obj[d.type] = d.value;
+      });
+      return obj;
     });
 
     const stackedData = d3.stack().keys(keys)(processedData);
 
     const x0 = d3.scaleBand()
-        .domain(categories)
-        .rangeRound([0, width])
-        .paddingInner(0.1);
+      .domain(categories)
+      .rangeRound([0, width])
+      .paddingInner(0.1);
 
     const y = d3.scaleLinear()
-        .domain([0, d3.max(stackedData, d => d3.max(d, d => d[1])) || 0])
-        .rangeRound([height, 0]).nice();
+      .domain([0, d3.max(stackedData, d => d3.max(d, d => d[1])) || 0])
+      .rangeRound([height, 0]).nice();
 
     // Draw the stacked bars
     g.selectAll("g")
-        .data(stackedData)
-        .enter().append("g")
-        .attr("fill", d => z(d.key) as string) 
-        .selectAll("rect")
-        .data(d => d)
-        .enter().append("rect")
-        .attr("x", d => x0(String(d.data['unitType']))!)
-        .attr("y", d => y(d[1]))
-        .attr("height", d => y(d[0]) - y(d[1]))
-        .attr("width", x0.bandwidth());
+      .data(stackedData)
+      .enter().append("g")
+      .attr("fill", d => z(d.key) as string)
+      .selectAll("rect")
+      .data(d => d)
+      .enter().append("rect")
+      .attr("x", d => x0(String(d.data['unitType']))!)
+      .attr("y", d => y(d[1]))
+      .attr("height", d => y(d[0]) - y(d[1]))
+      .attr("width", x0.bandwidth());
 
     // Draw the Axes
     g.append("g")
-        .attr("class", "axis")
-        .attr("transform", `translate(0,${height})`)
-        .call(d3.axisBottom(x0));
+      .attr("class", "axis")
+      .attr("transform", `translate(0,${height})`)
+      .call(d3.axisBottom(x0));
 
     const lastTick = y.ticks().pop();
 
     g.append("g")
-        .attr("class", "axis")
-        .call(d3.axisLeft(y).ticks(null, "s"))
-        .append("text")
-        .attr("x", 2)
-        .attr("y", y(lastTick ? lastTick : 0) + 0.5)
-        .attr("dy", "0.32em")
-        .attr("fill", "#000")
-        .attr("font-weight", "bold")
-        .attr("text-anchor", "start")
-        .text("Number of Units");
+      .attr("class", "axis")
+      .call(d3.axisLeft(y).ticks(null, "s"))
+      .append("text")
+      .attr("x", 2)
+      .attr("y", y(lastTick ? lastTick : 0) + 0.5)
+      .attr("dy", "0.32em")
+      .attr("fill", "#000")
+      .attr("font-weight", "bold")
+      .attr("text-anchor", "start")
+      .text("Number of Units");
+
+    // Define some padding between the main chart area and the legend
+    const legendPadding = 20;
+
+    // Calculate starting position for the legend
+    const legendStartX = width + legendPadding;
 
     // Draw the legend
     const legend = g.append("g")
-        .attr("font-family", "sans-serif")
-        .attr("font-size", 10)
-        .attr("text-anchor", "end")
-        .selectAll("g")
-        .data(types.slice().reverse())
-        .enter().append("g")
-        .attr("transform", (d, i) => `translate(0,${i * 20})`);
+      .attr("font-family", "sans-serif")
+      .attr("font-size", 10)
+      .attr("text-anchor", "start")  // Change the anchor point to start
+      .selectAll("g")
+      .data(keys) // Use the keys array directly to match the stacking order
+      .enter().append("g")
+      .attr("transform", (d, i) => `translate(${legendStartX},${i * 20})`);
 
     legend.append("rect")
-        .attr("x", width - 19)
-        .attr("width", 19)
-        .attr("height", 19)
-        .attr("fill", d => z(d) as string);
+      .attr("x", 0)
+      .attr("width", 19)
+      .attr("height", 19)
+      .attr("fill", d => z(d) as string);
 
     legend.append("text")
-        .attr("x", width - 24)
-        .attr("y", 9.5)
-        .attr("dy", "0.32em")
-        .text(d => d);
-}
+      .attr("x", 24) // A little padding between the rectangle and the text
+      .attr("y", 9.5)
+      .attr("dy", "0.32em")
+      .text(d => d);
+
+  }
 
 
 }

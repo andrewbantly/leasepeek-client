@@ -12,7 +12,7 @@ export class MarketRentMoveInComponent {
   @Input() marketRentxDate: MarketRentXDate[] = [];
 
   width = 800;
-  height = 400;
+  height = 500;
   margin = { top: 30, bottom: 50, left: 100, right: 150 };
 
   constructor(private el: ElementRef) { }
