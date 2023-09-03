@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/api/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'rroll-excel-upload',
@@ -12,7 +13,7 @@ export class ExcelUploadComponent implements OnInit{
   fileName = ''
 
   
-  constructor(private apiService: ApiService, private http: HttpClient) {}
+  constructor(private apiService: ApiService, private http: HttpClient, private router: Router) {}
   
   selectedFile: File | null = null;
 
@@ -37,12 +38,12 @@ export class ExcelUploadComponent implements OnInit{
       this.apiService.uploadExcelFile(formData).subscribe(
         dataUploadResponse => {
           console.log(dataUploadResponse.message)
-          console.log("Rent Roll Date:", dataUploadResponse.date)
-          const rentRollDate = dataUploadResponse.date
-      this.apiService.loadExcelData(rentRollDate).subscribe(
+          console.log("Find object ID", dataUploadResponse)
+          const rentrollID = dataUploadResponse.objectId
+      this.apiService.loadExcelData(rentrollID).subscribe(
         response => {
           console.log("Data uploaded and loaded respone:", response)
-          console.log("Next thing to do is navigate")
+          this.router.navigate([`/data/${rentrollID}`])
         }
       )
         },
