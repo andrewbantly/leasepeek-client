@@ -13,7 +13,7 @@ export class MarketRentMoveInComponent {
 
   width = 800;
   height = 400;
-  margin = { top: 10, bottom: 50, left: 100, right: 150 };
+  margin = { top: 30, bottom: 50, left: 100, right: 150 };
 
   constructor(private el: ElementRef) { }
 
@@ -62,7 +62,7 @@ export class MarketRentMoveInComponent {
 
     const yScale = d3.scaleLinear()
       .domain(yExtent as [number, number])
-      .range([this.height - this.margin.bottom - totalLegendHeight, this.margin.top]);
+      .range([this.height - this.margin.bottom - totalLegendHeight - 10, this.margin.top]);
 
     const colorScale = d3.scaleOrdinal(d3.schemeCategory10).domain(grouped.keys());
 
