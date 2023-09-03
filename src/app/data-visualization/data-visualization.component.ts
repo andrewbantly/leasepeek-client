@@ -1,4 +1,4 @@
-import { Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, DoCheck, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../api/api.service';
 import { ViewChild } from '@angular/core';
@@ -30,11 +30,9 @@ export class DataVisualizationComponent implements OnInit {
       this.message = "Loading data";
       this.apiService.loadExcelData(this.objectId).subscribe(
         dataLoadResponse => {
-          console.log("Data load response:", dataLoadResponse);
           this.building = dataLoadResponse[0].building;
           this.asOfDate = dataLoadResponse[0].date;
           this.rentData = dataLoadResponse[0].data;
-          console.log("true or false", this.rentData)
           this.marketRentMoveIn.gatherRentxData(this.rentData)
           this.message = ""
         }
@@ -45,10 +43,15 @@ export class DataVisualizationComponent implements OnInit {
     }
   }
 
+  loadData() {
+    console.log(this.marketRentMoveIn)
+  }
+
   onTabChanged(event: any) {
       switch (event.index) {
           case 0:
               this.activeGraph = 'marketRentxMoveIn';
+              this.loadData()
               break;
           case 1:
               this.activeGraph = 'vacancy';

@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input } from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { MarketRentXDate } from '../data-visualization';
 import * as d3 from 'd3';
 

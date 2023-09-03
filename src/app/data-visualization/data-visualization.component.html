@@ -1,4 +1,3 @@
-<p>data viz comp works!</p>
 <p>{{message}}</p>
 <h2>{{building}}</h2>
 <h3>{{asOfDate}}</h3>
@@ -6,12 +5,8 @@
 <mat-tab-group (selectedTabChange)="onTabChanged($event)">
     <mat-tab label="Market Rent"></mat-tab>
     <mat-tab label="Vacancy"></mat-tab>
-  </mat-tab-group>
-  
-  <ng-container *ngIf="activeGraph === 'marketRentxMoveIn'">
-    <rroll-market-rent-move-in></rroll-market-rent-move-in>
-</ng-container>
+</mat-tab-group>
 
-<ng-container *ngIf="activeGraph === 'vacancy'">
-    <rroll-vacancy></rroll-vacancy>
-</ng-container>
+<rroll-market-rent-move-in *ngIf="activeGraph === 'marketRentxMoveIn'"></rroll-market-rent-move-in>
+
+<rroll-vacancy *ngIf="activeGraph === 'vacancy'"></rroll-vacancy>
