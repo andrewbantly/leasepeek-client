@@ -17,6 +17,8 @@ import {MatListModule} from '@angular/material/list';
 import { RentDataListComponent } from './user/rent-data-list/rent-data-list.component';
 import { DataVisualizationComponent } from './data-visualization/data-visualization.component';
 import { MarketRentMoveInComponent } from './data-visualization/market-rent-move-in/market-rent-move-in.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import { VacancyComponent } from './data-visualization/vacancy/vacancy.component';
 
 
 
@@ -31,6 +33,7 @@ import { MarketRentMoveInComponent } from './data-visualization/market-rent-move
     RentDataListComponent,
     DataVisualizationComponent,
     MarketRentMoveInComponent,
+    VacancyComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +43,7 @@ import { MarketRentMoveInComponent } from './data-visualization/market-rent-move
     MatButtonModule,
     MatIconModule,
     MatListModule,
+    MatTabsModule,
   ],
   providers: [{
     provide: APP_SERVICE_CONFIG,
