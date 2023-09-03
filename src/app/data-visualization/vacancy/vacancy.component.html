@@ -1,1 +1,5 @@
-<p>vacancy works!</p>
+
+<!-- <svg id="myStackedBarChart"></svg> -->
+<div *ngFor="let unit of unitTypeVacany">
+    <p> For unit type {{ unit.unitType }}, there are {{unit.occupied + unit.vacants}} total units. {{ unit.vacants }} are vacant and {{ unit.moveOuts }} soon to move out.</p>
+</div>
