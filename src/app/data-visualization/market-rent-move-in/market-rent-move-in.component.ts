@@ -44,6 +44,7 @@ export class MarketRentMoveInComponent {
     const legendSize = 20;
     const legendSpacing = 4;
     const totalLegendHeight = legendItems * (legendSize + legendSpacing) + this.margin.bottom;
+    const legendTitleGap = 25;
 
     this.height = 400 + totalLegendHeight;
 
@@ -65,8 +66,10 @@ export class MarketRentMoveInComponent {
     const colorScale = d3.scaleOrdinal(d3.schemeCategory10).domain(grouped.keys());
 
     // Drawing the x and y axes
+    const formatDollar = d3.format(",");
+    const yAxis = d3.axisLeft(yScale)
+      .tickFormat(d => `$${formatDollar(d)}`);
     const xAxis = d3.axisBottom(xScale);
-    const yAxis = d3.axisLeft(yScale);
 
     svg.append('g')
       .attr('transform', `translate(0, ${this.height - this.margin.bottom - totalLegendHeight})`)
@@ -92,7 +95,7 @@ export class MarketRentMoveInComponent {
     });
 
     svg.append("text")
-      .attr("transform", "translate(" + (this.width / 2) + " ," + (this.height - this.margin.bottom - totalLegendHeight + 35) + ")")
+      .attr("transform", "translate(" + (this.width / 2) + " ," + (this.height - this.margin.bottom - totalLegendHeight + 45) + ")")
       .style("text-anchor", "middle")
       .text("Move-in Date");
 
@@ -100,7 +103,7 @@ export class MarketRentMoveInComponent {
 
     svg.append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", this.margin.left - 60)
+      .attr("y", this.margin.left - 70)
       .attr("x", 0 - mainChartHeight / 2)  // Adjusted line
       .attr("dy", "1em")
       .style("text-anchor", "middle")
@@ -112,7 +115,8 @@ export class MarketRentMoveInComponent {
       .enter()
       .append('g')
       .attr('class', 'legend')
-      .attr('transform', (d, i) => `translate(${this.width - this.margin.right - 100}, ${this.height - totalLegendHeight + i * (legendSize + legendSpacing)})`);
+      .attr('transform', (d, i) => `translate(${this.width - this.margin.right - 100}, ${this.height - totalLegendHeight + legendTitleGap + i * (legendSize + legendSpacing)})`);
+
 
     legend.append('rect')
       .attr('width', legendSize)
@@ -124,8 +128,16 @@ export class MarketRentMoveInComponent {
       .attr('x', legendSize + legendSpacing)
       .attr('y', legendSize - legendSpacing)
       .text(d => d);
+
+    const legendTitleYPosition = this.height - totalLegendHeight + 10;
+
+    svg.append('text')
+      .attr('x', this.width - this.margin.right - 50)  
+      .attr('y', legendTitleYPosition)
+      .style("text-anchor", "middle")
+      .text("Floor plans");
+
+
   }
-
-
 
 }
