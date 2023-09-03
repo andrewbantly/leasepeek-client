@@ -4,3 +4,9 @@ export interface MarketRentXDate {
     unitType: string;
     unitNumber: number;
 }
+
+export interface UnitVacancy {
+    unitType: string;
+    isVacant: boolean;
+    moveOut: boolean;
+}

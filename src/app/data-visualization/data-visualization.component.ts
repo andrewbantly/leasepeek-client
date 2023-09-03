@@ -34,6 +34,7 @@ export class DataVisualizationComponent implements OnInit {
           this.asOfDate = dataLoadResponse[0].date;
           this.rentData = dataLoadResponse[0].data;
           this.marketRentMoveIn.gatherRentxData(this.rentData)
+          this.vacancy.gatherVacancyData(this.rentData)
           this.message = ""
         }
       )
