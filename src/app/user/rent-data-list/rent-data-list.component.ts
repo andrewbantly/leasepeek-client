@@ -35,12 +35,16 @@ export class RentDataListComponent implements OnInit {
     this.router.navigate([`/data/${objectId}`])
   }
 
-  onSearch(): void {
-    if (!this.searchTerm) {
-      this.dataList = [];
+  onSearch(e:any): void {
+    if (!this.searchTerm && (e.key === 'Backspace' || e.key === 'Delete')) {
       return;
     }
-    
+  
+    if (!this.searchTerm) {
+      this.dataList = [...this.allDataItems];
+      return;
+    }
+  
     this.dataList = this.allDataItems.filter(item => 
       item.building.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
