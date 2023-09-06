@@ -19,6 +19,7 @@ import { DataVisualizationComponent } from './data-visualization/data-visualizat
 import { MarketRentMoveInComponent } from './data-visualization/market-rent-move-in/market-rent-move-in.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import { VacancyComponent } from './data-visualization/vacancy/vacancy.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -44,6 +45,7 @@ import { VacancyComponent } from './data-visualization/vacancy/vacancy.component
     MatIconModule,
     MatListModule,
     MatTabsModule,
+    FormsModule,
   ],
   providers: [{
     provide: APP_SERVICE_CONFIG,

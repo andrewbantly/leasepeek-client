@@ -17,7 +17,7 @@ export class UserComponent implements OnInit {
     username: "",
     email: ""
   };
-
+ 
   constructor(private loginService: LoginService, private apiService: ApiService, private router: Router, private http: HttpClient) { }
 
 
@@ -47,4 +47,6 @@ export class UserComponent implements OnInit {
       }
     )
   }
+
+
 }

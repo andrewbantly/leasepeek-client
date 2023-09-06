@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 export class RentDataListComponent implements OnInit {
 
   @Input() dataList: RentDataList[] = []
+  allDataItems: RentDataList[] = [];
+  searchTerm: string = ""
 
   constructor(private apiService: ApiService, private http: HttpClient, private router: Router) { }
 
@@ -21,13 +23,27 @@ export class RentDataListComponent implements OnInit {
       response => {
         console.log("Loading User Data")
         console.log("response data:", response.data)
-        this.dataList = response.data
+        this.allDataItems = response.data;
+        this.dataList = [...this.allDataItems]; 
       }
     )
+    console.log("Data list:", this.dataList)
   }
 
   selectData(objectId:string) {
     console.log("Data ID selected:", objectId);
     this.router.navigate([`/data/${objectId}`])
   }
+
+  onSearch(): void {
+    if (!this.searchTerm) {
+      this.dataList = [];
+      return;
+    }
+    
+    this.dataList = this.allDataItems.filter(item => 
+      item.building.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
+  
 }
