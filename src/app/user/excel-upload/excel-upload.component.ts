@@ -43,7 +43,7 @@ export class ExcelUploadComponent implements OnInit{
       this.apiService.loadExcelData(rentrollID).subscribe(
         response => {
           console.log("Data uploaded and loaded respone:", response)
-          this.router.navigate([`/data/${rentrollID}`])
+          // this.router.navigate([`/data/${rentrollID}`])
         }
       )
         },
