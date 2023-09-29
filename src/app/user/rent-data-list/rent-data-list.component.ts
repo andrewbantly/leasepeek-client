@@ -46,7 +46,7 @@ export class RentDataListComponent implements OnInit {
     }
   
     this.dataList = this.allDataItems.filter(item => 
-      item.building.toLowerCase().includes(this.searchTerm.toLowerCase())
+      item.location.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
   

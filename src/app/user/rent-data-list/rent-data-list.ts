@@ -1,5 +1,5 @@
 export interface RentDataList {
-    building: string;
+    location: string;
     date: string;
     objectId: string;
 }
