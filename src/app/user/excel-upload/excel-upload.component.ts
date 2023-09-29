@@ -30,6 +30,11 @@ export class ExcelUploadComponent implements OnInit{
     this.fileName = this.selectedFile.name;
   }
 
+  releaseFile() {
+    this.selectedFile = null;
+    this.fileName = ''
+  }
+
   uploadFile() {
     if (this.selectedFile) {
       console.log("UPLOAD FILE")
@@ -53,16 +58,5 @@ export class ExcelUploadComponent implements OnInit{
     else {
       console.log("FILE UPLOAD ERROR")
     }
-  }
-  loadFile() {
-    console.log("Load file button clicked");
-    const date = '03-27-2023'
-    this.apiService.loadExcelData(date).subscribe(
-      response => { 
-        console.log("Data loaded:")
-        console.log(response)
-      },
-      error => console.error("Error loading file")
-    )
   }
 }

@@ -5,5 +5,5 @@
     {{fileName || "No file uploaded yet."}}
     <button *ngIf="!fileName" mat-flat-button color="primary" (click)="fileUpload.click()">Upload</button>
     <button *ngIf="fileName" mat-flat-button color="accent" (click)="uploadFile()">Submit</button>
-    <button mat-flat-button color="primary" (click)="loadFile()">Load</button>
+    <button *ngIf="fileName" mat-flat-button color="primary" (click)="releaseFile()">Reset</button>
 </div>
