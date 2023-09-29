@@ -45,12 +45,12 @@ export class ExcelUploadComponent implements OnInit{
           console.log(dataUploadResponse.message)
           console.log("Find object ID", dataUploadResponse)
           const rentrollID = dataUploadResponse.objectId
-      // this.apiService.loadExcelData(rentrollID).subscribe(
-      //   response => {
-      //     console.log("Data uploaded and loaded respone:", response)
-      //     this.router.navigate([`/data/${rentrollID}`])
-      //   }
-      // )
+      this.apiService.loadExcelData(rentrollID).subscribe(
+        response => {
+          console.log("Data uploaded and loaded respone:", response)
+          this.router.navigate([`/data/${rentrollID}`])
+        }
+      )
         },
         error => console.error("Error uploading file")
       )
